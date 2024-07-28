@@ -5,3 +5,5 @@ using common js and module js
 app.use is used when we cofnfigure any middlewares
 
 higherOrder functions in js means function which can accept as params or can return it treatrs as a variable
+
+jwt is bearer token

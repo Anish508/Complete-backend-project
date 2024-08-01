@@ -7,3 +7,22 @@ app.use is used when we cofnfigure any middlewares
 higherOrder functions in js means function which can accept as params or can return it treatrs as a variable
 
 jwt is bearer token
+
+register user 
+
+steps:-
+1.creating async handler
+2.creating the route as middleware on app.js and exporting that route using userRouter
+3.defining the routes in userRouter and posting to the register user 
+
+
+controller :
+1.get user details from frontend
+2.validation - not empty
+3.check if user already exist: check using username , email
+4.check for images and avatar
+5.upload them to cloudinary , avatar 
+6.create user objects - create entry in db
+7.remove password and refresh tokens field from response
+8.check for user creation
+9.return response else error

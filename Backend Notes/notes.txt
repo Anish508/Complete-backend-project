@@ -26,3 +26,62 @@ controller :
 7.remove password and refresh tokens field from response
 8.check for user creation
 9.return response else error
+
+
+request body: [Object: null prototype] {
+  fullName: 'Shrinidhi M',
+  email: 'shri@gmail.com',
+  username: 'shri',
+  password: 'shri156372'
+}
+Req files obj: [Object: null prototype] {
+  avatar: [
+    {
+      fieldname: 'avatar',
+      originalname: 'coverimage.png',
+      encoding: '7bit',
+      mimetype: 'image/png',
+      destination: './public/temp',
+      filename: 'coverimage.png',
+      path: 'public\\temp\\coverimage.png',
+      size: 361098
+    }
+  ],
+  coverImage: [
+    {
+      fieldname: 'coverImage',
+      originalname: 'shri.jpg',
+      encoding: '7bit',
+      mimetype: 'image/jpeg',
+      destination: './public/temp',
+      filename: 'shri.jpg',
+      path: 'public\\temp\\shri.jpg',
+      size: 853173
+    }
+  ]
+}
+file is uploaded on cloudinary  http://res.cloudinary.com/dxqquzbfx/image/upload/v1722580840/zg58maf9dluohzipbvhg.png
+file is uploaded on cloudinary  http://res.cloudinary.com/dxqquzbfx/image/upload/v1722580842/z6b35cv8cn4uzxs48vwc.jpg
+avtart response: {
+  asset_id: '9e2c6b974da1a54ecbc393cdb30db9f1',
+  public_id: 'zg58maf9dluohzipbvhg',
+  version: 1722580840,
+  version_id: 'd4b8f149513cd04fa2e753021374679d',
+  signature: 'eced077adfe02971903136a7026977a55e237482',
+  width: 3264,
+  height: 2088,
+  format: 'png',
+  resource_type: 'image',
+  created_at: '2024-08-02T06:40:40Z',
+  tags: [],
+  bytes: 361098,
+  type: 'upload',
+  etag: '54d46d8c2a07ce17d4b948eafc7478aa',
+  placeholder: false,
+  url: 'http://res.cloudinary.com/dxqquzbfx/image/upload/v1722580840/zg58maf9dluohzipbvhg.png',   
+  secure_url: 'https://res.cloudinary.com/dxqquzbfx/image/upload/v1722580840/zg58maf9dluohzipbvhg.png',
+  asset_folder: '',
+  display_name: 'zg58maf9dluohzipbvhg',
+  original_filename: 'coverimage',
+  api_key: '392423965836174'
+}

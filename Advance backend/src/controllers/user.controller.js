@@ -8,7 +8,9 @@ import jwt from "jsonwebtoken"
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const user = await User.findById(userId);
-    const accessToken = user.generateAcessTokens();
+    console.log(user);
+    
+    const accessToken = user.generateAccessTokens();
     const refreshToken = user.generateRefreshTokens();
 
     user.refreshTokens = refreshToken;
@@ -136,7 +138,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
-    user._id,
+    user?._id,
   );
 
   const loggedInUser = await User.findById(user._id).select(
@@ -215,7 +217,7 @@ try {
     secure:true
   }
   
-  const {accessToken , newRefreshToken} = await generateAcessTokens(user?._id)
+  const {accessToken , newRefreshToken} = await generateAccessAndRefreshTokens(user?._id)
   
   return res
   .status(200)

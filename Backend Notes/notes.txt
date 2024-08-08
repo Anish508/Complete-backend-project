@@ -85,3 +85,9 @@ avtart response: {
   original_filename: 'coverimage',
   api_key: '392423965836174'
 }
+
+
+How database works:
+
+how to count number of subs in channel : 
+ans:we can match the channel name

@@ -374,45 +374,101 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
       },
     },
     {
-      $addFields:{
-        subscribersCount :{
-          $size:"$subcribers"
+      $addFields: {
+        subscribersCount: {
+          $size: "$subcribers",
         },
-        channelsSubscribedToCount :{
-          $size:"$subscribedTo"
+        channelsSubscribedToCount: {
+          $size: "$subscribedTo",
         },
-        isSubscribed:{
-          $cond:{
-            if:{$in: [req.user?._id,"$subcribers.subscriber"]},
+        isSubscribed: {
+          $cond: {
+            if: { $in: [req.user?._id, "$subcribers.subscriber"] },
             then: true,
             else: false,
-          }
-        }
-      }
+          },
+        },
+      },
     },
     {
-      $project:{
-        fullName : 1,
-        username:1,
-        subscribersCount:1,
-        channelsSubscribedToCount:1,
-        isSubscribed:1,
-        coverImage:1,
-        avatar:1,
-        email:1
-      }
-    }
+      $project: {
+        fullName: 1,
+        username: 1,
+        subscribersCount: 1,
+        channelsSubscribedToCount: 1,
+        isSubscribed: 1,
+        coverImage: 1,
+        avatar: 1,
+        email: 1,
+      },
+    },
   ]);
 
   console.log(channel);
-  
+
   if (!channel?.length) {
-    throw new ApiError(404, "Channel does not exists")
+    throw new ApiError(404, "Channel does not exists");
   }
 
   return res
+    .status(200)
+    .json(
+      new ApiResponse(200, channel[0], "User Channel fetched successfully"),
+    );
+});
+
+const getWatchHistory = asyncHandler(async (req, res) => {
+  const user = await User.aggregate([
+    {
+      $match: {
+        _id: new monogoose.Types.ObjectId(req.user._id),
+      },
+    },
+    {
+      $lookup: {
+        from: "videos",
+        localField: "whatchHistory",
+        foreignField: "_id",
+        as: "watchHistory",
+        pipeline: [
+          {
+            $lookup: {
+              from: "users",
+              localField: "owner",
+              foreignField: "_id",
+              as: "Owner",
+              pipeline:[
+                {
+                  $project:{
+                    fullName:1,
+                    username :1,
+                    avatar : 1,
+                  }
+                },
+                {
+                  $addFields:{
+                    owner:{
+                      $first:"$owner"
+                    }
+                  }
+                }
+              ]
+            },
+          },
+        ],
+      },
+    },
+  ]);
+
+  return res
   .status(200)
-  .json(new ApiResponse(200 , channel[0] , "User Channel fetched successfully"))
+  .json(
+    new ApiResponse(
+      200,
+      user[0].watchHistory,
+      "Watch History fetched successfully"
+    )
+  )
 });
 export {
   registerUser,
@@ -425,4 +481,5 @@ export {
   updateUserAvatar,
   updateUserCoverImage,
   getUserChannelProfile,
+  getWatchHistory,
 };
